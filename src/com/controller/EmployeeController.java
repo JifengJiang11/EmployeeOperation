@@ -24,6 +24,7 @@ public class EmployeeController extends HttpServlet {
 	private static final String SHOWALL_JSP = "/showAll.jsp";
     private EmployeeDaoHiberImpl ehDao = new EmployeeDaoHiberImpl();
     private EmployeeDaoSQLImpl esDao = new EmployeeDaoSQLImpl();
+    private String way = "";
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -48,6 +49,11 @@ public class EmployeeController extends HttpServlet {
 			request.setAttribute("employeeList", ehDao.employeeList());
 		} else if(action.equals("add")) {
 			forward = EDIT_JSP;			
+		} else if(action.equals("update")) {
+			forward = EDIT_JSP;
+			Integer id = Integer.valueOf(request.getParameter("id"));
+			Employee e = ehDao.getEmployee(id);
+			request.setAttribute("employee", e);
 		}
 		request.getRequestDispatcher(forward).forward(request, response);
 	}
@@ -56,12 +62,19 @@ public class EmployeeController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		Employee e = new Employee();
-		e.setId(Integer.parseInt(request.getParameter("id")));
 		e.setFirstName(request.getParameter("firstName"));
 		e.setLastName(request.getParameter("lastName"));
 		e.setDepartment(request.getParameter("department"));
-		ehDao.addEmployee(e);
+		String id = request.getParameter("id");
+		if(id == null || id.isEmpty()) {
+			ehDao.addEmployee(e);
+		} else {
+			e.setId(Integer.parseInt(request.getParameter("id")));			
+			ehDao.updateEmployee(e);
+		}
+		
 		request.setAttribute("employeeList", ehDao.employeeList());
 		request.getRequestDispatcher(SHOWALL_JSP).forward(request,  response);
 	}

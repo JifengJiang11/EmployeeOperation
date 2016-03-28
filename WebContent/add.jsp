@@ -14,25 +14,25 @@
 			<tr>
 				<td>Id</td>
 				<td>
-					<input type = "text" name="id">
+					<input type = "text" name="id" readonly="readonly" value="<c:out value="${employee.id}"/>">
 				</td>
 			</tr>
 			<tr>
 				<td>First Name</td>
 				<td>
-					<input type = "text" name="firstName">
+					<input type = "text" name="firstName" value="<c:out value="${employee.firstName}"/> ">
 				</td>
 			</tr>
 			<tr>
 				<td>Last Name</td>
 				<td>
-					<input type = "text" name="lastName">
+					<input type = "text" name="lastName" value="<c:out value="${employee.lastName}"/> ">
 				</td>
 			</tr>
 			<tr>
 				<td>Department</td>
 				<td>
-					<input type = "text" name="department">
+					<input type = "text" name="department" value="<c:out value="${employee.department}"/> ">
 				</td>
 			</tr>			
 			<tr>

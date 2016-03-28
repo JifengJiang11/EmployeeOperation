@@ -11,8 +11,31 @@
 <body>
 	<a href="EmployeeController?action=add"> Add New Employee</a>
 	<br>
-	<br>
-	<br>
+	<table cellpadding="2" cellspacing = "2" border="1">
+		<tr>
+			<th>Id</th>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Department</th>
+			<th>Option</th>
+		</tr>
+		<c:forEach var="e" items="${employeeList}">
+			<tr>
+				<td><c:out value = "${e.id}"/> </td>
+				<td><c:out value = "${e.firstName}"/></td>
+				<td><c:out value = "${e.lastName}"/></td>
+				<td><c:out value = "${e.department}"/></td>
+				<td>
+					<a href="EmployeeController?action=delete&id=${e.id}" onclick="return confirm('Are you sure?')">Delete</a>
+					<a href="EmployeeController?action=update&id=${e.id}">Update</a>
+				</td>
+			</tr>
+		</c:forEach>
+	</table>
+	<br><br>	
+	<p>Directly SQL Manner</p>
+	<a href="EmployeeController?action=add"> Add New Employee</a>
+	<br>	
 	<table cellpadding="2" cellspacing = "2" border="1">
 		<tr>
 			<th>Id</th>
@@ -32,6 +55,6 @@
 				</td>
 			</tr>
 		</c:forEach>
-	</table>	
+	</table>		
 </body>
 </html>

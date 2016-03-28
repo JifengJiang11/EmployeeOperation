@@ -8,6 +8,7 @@
 <title>Employee Operation</title>
 </head>
 <body>
-	<jsp:forward page="/EmployeeController?action=showAll"></jsp:forward>
+	<a href="EmployeeController?action=showAll&way=sql" > Directly SQL Query</a>
+	<a href="EmployeeController?action=showAll&way=hibernate" > Hibernate Query</a>
 </body>
 </html>
