@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 /**
+ * 
  * 2016/03/23
  * author: Miao shan
  */
@@ -19,7 +20,7 @@ public class PropertyManager {
 
 	static {
 		try {
-			props.load(PropertyManager.class.getClassLoader().getResourceAsStream("config/default.properties"));  
+			props.load(PropertyManager.class.getClassLoader().getResourceAsStream("com/config/default.properties"));  
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}

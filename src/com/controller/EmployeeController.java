@@ -7,8 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.DAO.EmployeeDaoHiberImpl;
-import com.DAO.EmployeeDaoSQLImpl;
+import com.DAO.*;
 import com.entities.Employee;
 
 /**
@@ -22,37 +21,44 @@ public class EmployeeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String EDIT_JSP = "/add.jsp";
 	private static final String SHOWALL_JSP = "/showAll.jsp";
-    private EmployeeDaoHiberImpl ehDao = new EmployeeDaoHiberImpl();
-    private EmployeeDaoSQLImpl esDao = new EmployeeDaoSQLImpl();
-    private String way = "";
+    private EmployeeDao dao;
     /**
      * @see HttpServlet#HttpServlet()
      */
     public EmployeeController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String w = request.getParameter("way");	
+		//generate the according dao.
+		if(w != null) {
+			if(w.equals("sql")) {
+				dao = new EmployeeDaoSQLImpl();
+			} else {
+				dao = new EmployeeDaoHiberImpl();
+			}
+		}
+		
 		String action = request.getParameter("action");
-		String forward = "";
+		String forward = "";	//the page will forward to
 		if(action.equals("delete")) {
 			Integer id =Integer.valueOf(request.getParameter("id"));
-			ehDao.deleteEmployee(id);
-			request.setAttribute("employeeList", ehDao.employeeList());
+			dao.deleteEmployee(id);
+			request.setAttribute("employeeList", dao.employeeList());
 			forward = SHOWALL_JSP;
 		} else if(action.equals("showAll")) {
 			forward = SHOWALL_JSP;
-			request.setAttribute("employeeList", ehDao.employeeList());
+			request.setAttribute("employeeList", dao.employeeList());
 		} else if(action.equals("add")) {
 			forward = EDIT_JSP;			
 		} else if(action.equals("update")) {
 			forward = EDIT_JSP;
 			Integer id = Integer.valueOf(request.getParameter("id"));
-			Employee e = ehDao.getEmployee(id);
+			Employee e = dao.getEmployee(id);
 			request.setAttribute("employee", e);
 		}
 		request.getRequestDispatcher(forward).forward(request, response);
@@ -68,14 +74,15 @@ public class EmployeeController extends HttpServlet {
 		e.setLastName(request.getParameter("lastName"));
 		e.setDepartment(request.getParameter("department"));
 		String id = request.getParameter("id");
+		
 		if(id == null || id.isEmpty()) {
-			ehDao.addEmployee(e);
+			dao.addEmployee(e);
 		} else {
 			e.setId(Integer.parseInt(request.getParameter("id")));			
-			ehDao.updateEmployee(e);
+			dao.updateEmployee(e);
 		}
 		
-		request.setAttribute("employeeList", ehDao.employeeList());
+		request.setAttribute("employeeList", dao.employeeList());
 		request.getRequestDispatcher(SHOWALL_JSP).forward(request,  response);
 	}
 

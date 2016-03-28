@@ -9,9 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.config.PropertyManager;
-import com.entities.Employee;;
+import com.entities.Employee;
 
 /**
+ * This class is for directly SQL
  * 2016/03/23
  * author: Miao shan
  */
@@ -56,7 +57,12 @@ public class DirectlyDatabase {
             System.out.println(query);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-            	//todo: add all result to the list;
+            	Employee e = new Employee();
+            	e.setId(Integer.parseInt(rs.getString(1)));
+            	e.setFirstName(rs.getString(2));
+            	e.setLastName(rs.getString(3));
+            	e.setDepartment(rs.getString(4));
+            	list.add(e);
             }
         } catch (SQLException ex) {
             throw ex;

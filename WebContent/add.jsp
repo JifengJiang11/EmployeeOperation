@@ -11,12 +11,7 @@
 <body>
 	<form method="post" action="EmployeeController">
 		<table cellpadding="2" cellspacing = "2">
-			<tr>
-				<td>Id</td>
-				<td>
-					<input type = "text" name="id" readonly="readonly" value="<c:out value="${employee.id}"/>">
-				</td>
-			</tr>
+
 			<tr>
 				<td>First Name</td>
 				<td>
@@ -34,13 +29,19 @@
 				<td>
 					<input type = "text" name="department" value="<c:out value="${employee.department}"/> ">
 				</td>
-			</tr>			
+			</tr>		
+			<tr>
+				<td>Id(Read Only)</td>
+				<td>
+					<input type = "text" name="id" readonly="readonly" value="<c:out value="${employee.id}"/>">
+				</td>
+			</tr>				
 			<tr>
 				<td>&nbsp;</td>
 				<td align="left">
 					<input type="submit" value="save">
 				</td>
-			</tr>
+			</tr>			
 		</table>
 </body>
 </html>

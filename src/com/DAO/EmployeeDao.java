@@ -9,8 +9,17 @@ import java.util.List;
  */
 public interface EmployeeDao {
 	
+	/**
+	 * Get one employee by id
+	 * @param id
+	 * @return
+	 */
 	public Employee getEmployee(int id);
 	
+	/**
+	 * Get all the employee in the database
+	 * @return
+	 */
 	public List<Employee> employeeList();
 	
 	public void addEmployee(Employee employee);
