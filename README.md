@@ -16,7 +16,7 @@ Project directory:
 Framework: Servlet + hibernate + MySQL + JSP + Tomcat
 
 Deploy Process:
-	First:  create database
+1:  create database
         database name: employee
         table name: employee 
 
@@ -31,10 +31,11 @@ Deploy Process:
                   `department` varchar(45) DEFAULT NULL,
                   PRIMARY KEY (`ID`)) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
-	Second:  modify the configuration file
 
-				src/hibernate.cfg.xml: change database username and password.
-				src/com/config/default.properties: change db_username and db_password.
+2:  modify the configuration file
 
-  Last: run in the eclipse.
+	src/hibernate.cfg.xml: change database username and password.
+	src/com/config/default.properties: change db_username and db_password.
+
+3: run in the eclipse.
 
